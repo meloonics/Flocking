@@ -1,0 +1,1033 @@
+[gd_scene load_steps=6 format=2]
+
+[ext_resource path="res://Flocking.gd" type="Script" id=1]
+[ext_resource path="res://target.png" type="Texture" id=2]
+[ext_resource path="res://menu.gd" type="Script" id=3]
+[ext_resource path="res://lock.png" type="Texture" id=4]
+
+[sub_resource type="OpenSimplexNoise" id=1]
+
+[node name="Autonomous Agent" type="Node2D"]
+script = ExtResource( 1 )
+separation_factor = 0.0
+alignment_factor = 0.0
+cohesion_factor = 0.0
+pnoise = SubResource( 1 )
+
+[node name="target" type="Sprite" parent="."]
+texture = ExtResource( 2 )
+
+[node name="nest" type="Node2D" parent="."]
+
+[node name="menu" type="Panel" parent="."]
+pause_mode = 2
+self_modulate = Color( 1, 1, 1, 0.25098 )
+margin_left = 5.0
+margin_top = 5.0
+margin_right = 537.0
+margin_bottom = 564.0
+script = ExtResource( 3 )
+
+[node name="MarginContainer" type="MarginContainer" parent="menu"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 5.0
+margin_top = 5.0
+margin_right = -7.0
+margin_bottom = -5.0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="menu/MarginContainer"]
+margin_right = 520.0
+margin_bottom = 549.0
+
+[node name="boidsettings" type="Label" parent="menu/MarginContainer/VBoxContainer"]
+margin_right = 520.0
+margin_bottom = 14.0
+text = "BOID SETTINGS"
+align = 1
+
+[node name="population" type="HBoxContainer" parent="menu/MarginContainer/VBoxContainer"]
+editor/display_folded = true
+margin_top = 18.0
+margin_right = 520.0
+margin_bottom = 38.0
+hint_tooltip = "Decrease this if you experience performance issues."
+custom_constants/separation = 5
+
+[node name="name" type="Label" parent="menu/MarginContainer/VBoxContainer/population"]
+margin_top = 3.0
+margin_right = 82.0
+margin_bottom = 17.0
+rect_min_size = Vector2( 82, 0 )
+size_flags_horizontal = 0
+text = "population:"
+align = 2
+
+[node name="slider" type="HSlider" parent="menu/MarginContainer/VBoxContainer/population"]
+margin_left = 87.0
+margin_right = 450.0
+margin_bottom = 16.0
+size_flags_horizontal = 3
+min_value = 1.0
+value = 20.0
+ticks_on_borders = true
+
+[node name="value" type="Label" parent="menu/MarginContainer/VBoxContainer/population"]
+margin_left = 455.0
+margin_top = 3.0
+margin_right = 495.0
+margin_bottom = 17.0
+rect_min_size = Vector2( 40, 0 )
+size_flags_horizontal = 0
+text = "1"
+
+[node name="lock9" type="Button" parent="menu/MarginContainer/VBoxContainer/population"]
+margin_left = 500.0
+margin_right = 520.0
+margin_bottom = 20.0
+toggle_mode = true
+icon = ExtResource( 4 )
+
+[node name="max_speed" type="HBoxContainer" parent="menu/MarginContainer/VBoxContainer"]
+editor/display_folded = true
+margin_top = 42.0
+margin_right = 520.0
+margin_bottom = 62.0
+hint_tooltip = "Velocity's magnitude will be capped at this value."
+custom_constants/separation = 5
+
+[node name="name" type="Label" parent="menu/MarginContainer/VBoxContainer/max_speed"]
+margin_top = 3.0
+margin_right = 82.0
+margin_bottom = 17.0
+rect_min_size = Vector2( 82, 0 )
+size_flags_horizontal = 0
+text = "max speed:"
+align = 2
+
+[node name="slider" type="HSlider" parent="menu/MarginContainer/VBoxContainer/max_speed"]
+margin_left = 87.0
+margin_right = 450.0
+margin_bottom = 16.0
+size_flags_horizontal = 3
+min_value = 1.0
+value = 1.0
+ticks_on_borders = true
+
+[node name="value" type="Label" parent="menu/MarginContainer/VBoxContainer/max_speed"]
+margin_left = 455.0
+margin_top = 3.0
+margin_right = 495.0
+margin_bottom = 17.0
+rect_min_size = Vector2( 40, 0 )
+size_flags_horizontal = 0
+text = "1"
+
+[node name="lock8" type="Button" parent="menu/MarginContainer/VBoxContainer/max_speed"]
+margin_left = 500.0
+margin_right = 520.0
+margin_bottom = 20.0
+toggle_mode = true
+icon = ExtResource( 4 )
+
+[node name="max_force" type="HBoxContainer" parent="menu/MarginContainer/VBoxContainer"]
+editor/display_folded = true
+margin_top = 66.0
+margin_right = 520.0
+margin_bottom = 86.0
+hint_tooltip = "The force's magnitude will be capped at this value."
+custom_constants/separation = 5
+
+[node name="name" type="Label" parent="menu/MarginContainer/VBoxContainer/max_force"]
+margin_top = 3.0
+margin_right = 82.0
+margin_bottom = 17.0
+rect_min_size = Vector2( 82, 0 )
+size_flags_horizontal = 0
+text = "max force:"
+align = 2
+
+[node name="slider" type="HSlider" parent="menu/MarginContainer/VBoxContainer/max_force"]
+margin_left = 87.0
+margin_right = 450.0
+margin_bottom = 16.0
+size_flags_horizontal = 3
+min_value = 1.0
+value = 1.0
+ticks_on_borders = true
+
+[node name="value" type="Label" parent="menu/MarginContainer/VBoxContainer/max_force"]
+margin_left = 455.0
+margin_top = 3.0
+margin_right = 495.0
+margin_bottom = 17.0
+rect_min_size = Vector2( 40, 0 )
+size_flags_horizontal = 0
+text = "1"
+
+[node name="lock7" type="Button" parent="menu/MarginContainer/VBoxContainer/max_force"]
+margin_left = 500.0
+margin_right = 520.0
+margin_bottom = 20.0
+toggle_mode = true
+icon = ExtResource( 4 )
+
+[node name="view_radius" type="HBoxContainer" parent="menu/MarginContainer/VBoxContainer"]
+editor/display_folded = true
+margin_top = 90.0
+margin_right = 520.0
+margin_bottom = 110.0
+hint_tooltip = "View distance of a boid."
+custom_constants/separation = 5
+
+[node name="name" type="Label" parent="menu/MarginContainer/VBoxContainer/view_radius"]
+margin_top = 3.0
+margin_right = 82.0
+margin_bottom = 17.0
+rect_min_size = Vector2( 82, 0 )
+size_flags_horizontal = 0
+text = "view radius: "
+align = 2
+
+[node name="slider" type="HSlider" parent="menu/MarginContainer/VBoxContainer/view_radius"]
+margin_left = 87.0
+margin_right = 450.0
+margin_bottom = 16.0
+size_flags_horizontal = 3
+min_value = 1.0
+max_value = 200.0
+value = 64.0
+ticks_on_borders = true
+
+[node name="value" type="Label" parent="menu/MarginContainer/VBoxContainer/view_radius"]
+margin_left = 455.0
+margin_top = 3.0
+margin_right = 495.0
+margin_bottom = 17.0
+rect_min_size = Vector2( 40, 0 )
+size_flags_horizontal = 0
+text = "1"
+
+[node name="lock6" type="Button" parent="menu/MarginContainer/VBoxContainer/view_radius"]
+margin_left = 500.0
+margin_right = 520.0
+margin_bottom = 20.0
+toggle_mode = true
+icon = ExtResource( 4 )
+
+[node name="view_angle" type="HBoxContainer" parent="menu/MarginContainer/VBoxContainer"]
+editor/display_folded = true
+margin_top = 114.0
+margin_right = 520.0
+margin_bottom = 134.0
+hint_tooltip = "Boid's range of view. 0 = 180°, 1 = 0° (blind), -1 = 360° (sees all directions)"
+custom_constants/separation = 5
+
+[node name="name" type="Label" parent="menu/MarginContainer/VBoxContainer/view_angle"]
+margin_top = 3.0
+margin_right = 82.0
+margin_bottom = 17.0
+rect_min_size = Vector2( 82, 0 )
+size_flags_horizontal = 0
+text = "view angle:"
+align = 2
+
+[node name="slider" type="HSlider" parent="menu/MarginContainer/VBoxContainer/view_angle"]
+margin_left = 87.0
+margin_right = 450.0
+margin_bottom = 16.0
+size_flags_horizontal = 3
+min_value = -1.0
+max_value = 1.0
+step = 0.01
+tick_count = 5
+ticks_on_borders = true
+
+[node name="value" type="Label" parent="menu/MarginContainer/VBoxContainer/view_angle"]
+margin_left = 455.0
+margin_top = 3.0
+margin_right = 495.0
+margin_bottom = 17.0
+rect_min_size = Vector2( 40, 0 )
+size_flags_horizontal = 0
+text = "1"
+
+[node name="lock5" type="Button" parent="menu/MarginContainer/VBoxContainer/view_angle"]
+margin_left = 500.0
+margin_right = 520.0
+margin_bottom = 20.0
+toggle_mode = true
+icon = ExtResource( 4 )
+
+[node name="target_radius" type="HBoxContainer" parent="menu/MarginContainer/VBoxContainer"]
+editor/display_folded = true
+margin_top = 138.0
+margin_right = 520.0
+margin_bottom = 158.0
+hint_tooltip = "Inside this radius seek/flee-force takes effect."
+custom_constants/separation = 5
+
+[node name="name" type="Label" parent="menu/MarginContainer/VBoxContainer/target_radius"]
+margin_top = 3.0
+margin_right = 84.0
+margin_bottom = 17.0
+rect_min_size = Vector2( 82, 0 )
+size_flags_horizontal = 0
+text = "target radius:"
+align = 2
+
+[node name="slider" type="HSlider" parent="menu/MarginContainer/VBoxContainer/target_radius"]
+margin_left = 89.0
+margin_right = 450.0
+margin_bottom = 16.0
+size_flags_horizontal = 3
+max_value = 400.0
+step = 2.0
+value = 200.0
+ticks_on_borders = true
+
+[node name="value" type="Label" parent="menu/MarginContainer/VBoxContainer/target_radius"]
+margin_left = 455.0
+margin_top = 3.0
+margin_right = 495.0
+margin_bottom = 17.0
+rect_min_size = Vector2( 40, 0 )
+size_flags_horizontal = 0
+text = "1"
+
+[node name="lock4" type="Button" parent="menu/MarginContainer/VBoxContainer/target_radius"]
+margin_left = 500.0
+margin_right = 520.0
+margin_bottom = 20.0
+toggle_mode = true
+icon = ExtResource( 4 )
+
+[node name="brake_radius" type="HBoxContainer" parent="menu/MarginContainer/VBoxContainer"]
+editor/display_folded = true
+margin_top = 162.0
+margin_right = 520.0
+margin_bottom = 182.0
+hint_tooltip = "If a boid is closer to its target than this value, it will slow down."
+custom_constants/separation = 5
+
+[node name="name" type="Label" parent="menu/MarginContainer/VBoxContainer/brake_radius"]
+margin_top = 3.0
+margin_right = 82.0
+margin_bottom = 17.0
+rect_min_size = Vector2( 82, 0 )
+size_flags_horizontal = 0
+text = "brake radius:"
+align = 2
+
+[node name="slider" type="HSlider" parent="menu/MarginContainer/VBoxContainer/brake_radius"]
+margin_left = 87.0
+margin_right = 450.0
+margin_bottom = 16.0
+size_flags_horizontal = 3
+max_value = 200.0
+value = 100.0
+ticks_on_borders = true
+
+[node name="value" type="Label" parent="menu/MarginContainer/VBoxContainer/brake_radius"]
+margin_left = 455.0
+margin_top = 3.0
+margin_right = 495.0
+margin_bottom = 17.0
+rect_min_size = Vector2( 40, 0 )
+size_flags_horizontal = 0
+text = "1"
+
+[node name="lock4" type="Button" parent="menu/MarginContainer/VBoxContainer/brake_radius"]
+margin_left = 500.0
+margin_right = 520.0
+margin_bottom = 20.0
+toggle_mode = true
+icon = ExtResource( 4 )
+
+[node name="avg_mass" type="HBoxContainer" parent="menu/MarginContainer/VBoxContainer"]
+editor/display_folded = true
+margin_top = 186.0
+margin_right = 520.0
+margin_bottom = 206.0
+hint_tooltip = "Gravity will be stronger and wind will be weaker, the higher this value is."
+custom_constants/separation = 5
+
+[node name="name" type="Label" parent="menu/MarginContainer/VBoxContainer/avg_mass"]
+margin_top = 3.0
+margin_right = 82.0
+margin_bottom = 17.0
+rect_min_size = Vector2( 82, 0 )
+size_flags_horizontal = 0
+text = "mass:"
+align = 2
+
+[node name="slider" type="HSlider" parent="menu/MarginContainer/VBoxContainer/avg_mass"]
+margin_left = 87.0
+margin_right = 450.0
+margin_bottom = 16.0
+size_flags_horizontal = 3
+min_value = 1.0
+max_value = 50.0
+value = 1.0
+ticks_on_borders = true
+
+[node name="value" type="Label" parent="menu/MarginContainer/VBoxContainer/avg_mass"]
+margin_left = 455.0
+margin_top = 3.0
+margin_right = 495.0
+margin_bottom = 17.0
+rect_min_size = Vector2( 40, 0 )
+size_flags_horizontal = 0
+text = "1"
+
+[node name="lock3" type="Button" parent="menu/MarginContainer/VBoxContainer/avg_mass"]
+margin_left = 500.0
+margin_right = 520.0
+margin_bottom = 20.0
+toggle_mode = true
+icon = ExtResource( 4 )
+
+[node name="checkboxes" type="HBoxContainer" parent="menu/MarginContainer/VBoxContainer"]
+margin_top = 210.0
+margin_right = 520.0
+margin_bottom = 290.0
+custom_constants/separation = 34
+alignment = 1
+
+[node name="HBoxContainer" type="HBoxContainer" parent="menu/MarginContainer/VBoxContainer/checkboxes"]
+margin_left = 67.0
+margin_right = 203.0
+margin_bottom = 80.0
+hint_tooltip = "Tick this to improve performance."
+
+[node name="disable_collision" type="Label" parent="menu/MarginContainer/VBoxContainer/checkboxes/HBoxContainer"]
+margin_top = 33.0
+margin_right = 108.0
+margin_bottom = 47.0
+size_flags_horizontal = 0
+text = "disable collision:"
+
+[node name="check" type="CheckBox" parent="menu/MarginContainer/VBoxContainer/checkboxes/HBoxContainer"]
+margin_left = 112.0
+margin_right = 136.0
+margin_bottom = 80.0
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="menu/MarginContainer/VBoxContainer/checkboxes"]
+margin_left = 237.0
+margin_right = 452.0
+margin_bottom = 80.0
+alignment = 1
+
+[node name="draw" type="Label" parent="menu/MarginContainer/VBoxContainer/checkboxes/HBoxContainer2"]
+margin_top = 33.0
+margin_right = 34.0
+margin_bottom = 47.0
+size_flags_horizontal = 0
+text = "draw:"
+
+[node name="VBoxContainer" type="VBoxContainer" parent="menu/MarginContainer/VBoxContainer/checkboxes/HBoxContainer2"]
+margin_left = 38.0
+margin_right = 215.0
+margin_bottom = 80.0
+
+[node name="HBoxContainer" type="HBoxContainer" parent="menu/MarginContainer/VBoxContainer/checkboxes/HBoxContainer2/VBoxContainer"]
+margin_right = 177.0
+margin_bottom = 24.0
+hint_tooltip = "displays the boids' current velocity."
+
+[node name="draw_velocity" type="CheckBox" parent="menu/MarginContainer/VBoxContainer/checkboxes/HBoxContainer2/VBoxContainer/HBoxContainer"]
+margin_right = 24.0
+margin_bottom = 24.0
+
+[node name="velocity" type="Label" parent="menu/MarginContainer/VBoxContainer/checkboxes/HBoxContainer2/VBoxContainer/HBoxContainer"]
+margin_left = 28.0
+margin_top = 5.0
+margin_right = 177.0
+margin_bottom = 19.0
+text = "velocity vectors (green)"
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="menu/MarginContainer/VBoxContainer/checkboxes/HBoxContainer2/VBoxContainer"]
+margin_top = 28.0
+margin_right = 177.0
+margin_bottom = 52.0
+hint_tooltip = "displays the current forces acted upon the boids."
+
+[node name="draw_force" type="CheckBox" parent="menu/MarginContainer/VBoxContainer/checkboxes/HBoxContainer2/VBoxContainer/HBoxContainer2"]
+margin_right = 24.0
+margin_bottom = 24.0
+
+[node name="force" type="Label" parent="menu/MarginContainer/VBoxContainer/checkboxes/HBoxContainer2/VBoxContainer/HBoxContainer2"]
+margin_left = 28.0
+margin_top = 5.0
+margin_right = 144.0
+margin_bottom = 19.0
+text = "force vectors (red)"
+
+[node name="HBoxContainer3" type="HBoxContainer" parent="menu/MarginContainer/VBoxContainer/checkboxes/HBoxContainer2/VBoxContainer"]
+margin_top = 56.0
+margin_right = 177.0
+margin_bottom = 80.0
+hint_tooltip = "displays the radius in which seek-force will be applied. 
+the inner circle is the brake-radius."
+
+[node name="draw_fov" type="CheckBox" parent="menu/MarginContainer/VBoxContainer/checkboxes/HBoxContainer2/VBoxContainer/HBoxContainer3"]
+margin_right = 24.0
+margin_bottom = 24.0
+
+[node name="targer_radius" type="Label" parent="menu/MarginContainer/VBoxContainer/checkboxes/HBoxContainer2/VBoxContainer/HBoxContainer3"]
+margin_left = 28.0
+margin_top = 5.0
+margin_right = 161.0
+margin_bottom = 19.0
+text = "target radius (yellow)"
+
+[node name="forces" type="Label" parent="menu/MarginContainer/VBoxContainer"]
+margin_top = 294.0
+margin_right = 520.0
+margin_bottom = 308.0
+text = "FORCES"
+align = 1
+
+[node name="master" type="HBoxContainer" parent="menu/MarginContainer/VBoxContainer"]
+editor/display_folded = true
+margin_top = 312.0
+margin_right = 520.0
+margin_bottom = 332.0
+hint_tooltip = "all active forces get multiplied by this value."
+custom_constants/separation = 5
+
+[node name="name" type="Label" parent="menu/MarginContainer/VBoxContainer/master"]
+margin_top = 3.0
+margin_right = 62.0
+margin_bottom = 17.0
+rect_min_size = Vector2( 62, 0 )
+size_flags_horizontal = 0
+text = "MASTER:"
+align = 2
+
+[node name="slider" type="HSlider" parent="menu/MarginContainer/VBoxContainer/master"]
+margin_left = 67.0
+margin_right = 425.0
+margin_bottom = 16.0
+size_flags_horizontal = 3
+max_value = 1.0
+step = 0.01
+value = 1.0
+ticks_on_borders = true
+
+[node name="value" type="Label" parent="menu/MarginContainer/VBoxContainer/master"]
+margin_left = 430.0
+margin_top = 3.0
+margin_right = 470.0
+margin_bottom = 17.0
+rect_min_size = Vector2( 40, 0 )
+size_flags_horizontal = 0
+text = "1"
+
+[node name="disable2" type="Button" parent="menu/MarginContainer/VBoxContainer/master"]
+margin_left = 475.0
+margin_right = 495.0
+margin_bottom = 20.0
+toggle_mode = true
+text = "ø"
+
+[node name="lock2" type="Button" parent="menu/MarginContainer/VBoxContainer/master"]
+margin_left = 500.0
+margin_right = 520.0
+margin_bottom = 20.0
+toggle_mode = true
+icon = ExtResource( 4 )
+
+[node name="seek" type="HBoxContainer" parent="menu/MarginContainer/VBoxContainer"]
+editor/display_folded = true
+margin_top = 336.0
+margin_right = 520.0
+margin_bottom = 356.0
+hint_tooltip = "negative value = repulsion
+positive value = attraction"
+custom_constants/separation = 5
+alignment = 1
+
+[node name="name" type="Label" parent="menu/MarginContainer/VBoxContainer/seek"]
+margin_top = 3.0
+margin_right = 63.0
+margin_bottom = 17.0
+rect_min_size = Vector2( 62, 0 )
+size_flags_horizontal = 0
+text = "seek/flee:"
+align = 2
+
+[node name="slider" type="HSlider" parent="menu/MarginContainer/VBoxContainer/seek"]
+margin_left = 68.0
+margin_right = 425.0
+margin_bottom = 16.0
+size_flags_horizontal = 3
+min_value = -1.0
+max_value = 1.0
+step = 0.01
+value = 0.1
+tick_count = 5
+ticks_on_borders = true
+
+[node name="value" type="Label" parent="menu/MarginContainer/VBoxContainer/seek"]
+margin_left = 430.0
+margin_top = 3.0
+margin_right = 470.0
+margin_bottom = 17.0
+rect_min_size = Vector2( 40, 0 )
+size_flags_horizontal = 0
+text = "1"
+
+[node name="disable" type="Button" parent="menu/MarginContainer/VBoxContainer/seek"]
+margin_left = 475.0
+margin_right = 495.0
+margin_bottom = 20.0
+toggle_mode = true
+text = "ø"
+
+[node name="lock" type="Button" parent="menu/MarginContainer/VBoxContainer/seek"]
+margin_left = 500.0
+margin_right = 520.0
+margin_bottom = 20.0
+toggle_mode = true
+icon = ExtResource( 4 )
+
+[node name="separate" type="HBoxContainer" parent="menu/MarginContainer/VBoxContainer"]
+editor/display_folded = true
+margin_top = 360.0
+margin_right = 520.0
+margin_bottom = 380.0
+hint_tooltip = "magnitude of the average vector AWAY from a boid's flockmates."
+custom_constants/separation = 5
+
+[node name="name" type="Label" parent="menu/MarginContainer/VBoxContainer/separate"]
+margin_top = 3.0
+margin_right = 62.0
+margin_bottom = 17.0
+rect_min_size = Vector2( 62, 0 )
+size_flags_horizontal = 0
+text = "separate:"
+align = 2
+
+[node name="slider" type="HSlider" parent="menu/MarginContainer/VBoxContainer/separate"]
+margin_left = 67.0
+margin_right = 425.0
+margin_bottom = 16.0
+size_flags_horizontal = 3
+max_value = 1.0
+step = 0.01
+value = 0.5
+ticks_on_borders = true
+
+[node name="value" type="Label" parent="menu/MarginContainer/VBoxContainer/separate"]
+margin_left = 430.0
+margin_top = 3.0
+margin_right = 470.0
+margin_bottom = 17.0
+rect_min_size = Vector2( 40, 0 )
+size_flags_horizontal = 0
+text = "1"
+
+[node name="disable2" type="Button" parent="menu/MarginContainer/VBoxContainer/separate"]
+margin_left = 475.0
+margin_right = 495.0
+margin_bottom = 20.0
+toggle_mode = true
+text = "ø"
+
+[node name="lock2" type="Button" parent="menu/MarginContainer/VBoxContainer/separate"]
+margin_left = 500.0
+margin_right = 520.0
+margin_bottom = 20.0
+toggle_mode = true
+icon = ExtResource( 4 )
+
+[node name="align" type="HBoxContainer" parent="menu/MarginContainer/VBoxContainer"]
+editor/display_folded = true
+margin_top = 384.0
+margin_right = 520.0
+margin_bottom = 404.0
+hint_tooltip = "Averages the direction with other flockmates."
+custom_constants/separation = 5
+
+[node name="name" type="Label" parent="menu/MarginContainer/VBoxContainer/align"]
+margin_top = 3.0
+margin_right = 62.0
+margin_bottom = 17.0
+rect_min_size = Vector2( 62, 0 )
+size_flags_horizontal = 0
+text = "align:"
+align = 2
+
+[node name="slider" type="HSlider" parent="menu/MarginContainer/VBoxContainer/align"]
+margin_left = 67.0
+margin_right = 425.0
+margin_bottom = 16.0
+size_flags_horizontal = 3
+max_value = 1.0
+step = 0.01
+value = 0.5
+ticks_on_borders = true
+
+[node name="value" type="Label" parent="menu/MarginContainer/VBoxContainer/align"]
+margin_left = 430.0
+margin_top = 3.0
+margin_right = 470.0
+margin_bottom = 17.0
+rect_min_size = Vector2( 40, 0 )
+size_flags_horizontal = 0
+text = "1"
+
+[node name="disable3" type="Button" parent="menu/MarginContainer/VBoxContainer/align"]
+margin_left = 475.0
+margin_right = 495.0
+margin_bottom = 20.0
+toggle_mode = true
+text = "ø"
+
+[node name="lock3" type="Button" parent="menu/MarginContainer/VBoxContainer/align"]
+margin_left = 500.0
+margin_right = 520.0
+margin_bottom = 20.0
+toggle_mode = true
+icon = ExtResource( 4 )
+
+[node name="cohesion" type="HBoxContainer" parent="menu/MarginContainer/VBoxContainer"]
+editor/display_folded = true
+margin_top = 408.0
+margin_right = 520.0
+margin_bottom = 428.0
+rect_min_size = Vector2( 307, 0 )
+hint_tooltip = "Vector for the average position of all flockmates."
+custom_constants/separation = 5
+
+[node name="name" type="Label" parent="menu/MarginContainer/VBoxContainer/cohesion"]
+margin_top = 3.0
+margin_right = 62.0
+margin_bottom = 17.0
+rect_min_size = Vector2( 62, 0 )
+size_flags_horizontal = 0
+custom_colors/font_color = Color( 1, 1, 1, 1 )
+text = "cohesion:"
+
+[node name="slider" type="HSlider" parent="menu/MarginContainer/VBoxContainer/cohesion"]
+margin_left = 67.0
+margin_right = 425.0
+margin_bottom = 16.0
+size_flags_horizontal = 3
+max_value = 1.0
+step = 0.01
+value = 0.5
+ticks_on_borders = true
+
+[node name="value" type="Label" parent="menu/MarginContainer/VBoxContainer/cohesion"]
+margin_left = 430.0
+margin_top = 3.0
+margin_right = 470.0
+margin_bottom = 17.0
+rect_min_size = Vector2( 40, 0 )
+size_flags_horizontal = 0
+text = "1"
+
+[node name="disable4" type="Button" parent="menu/MarginContainer/VBoxContainer/cohesion"]
+margin_left = 475.0
+margin_right = 495.0
+margin_bottom = 20.0
+toggle_mode = true
+text = "ø"
+
+[node name="lock4" type="Button" parent="menu/MarginContainer/VBoxContainer/cohesion"]
+margin_left = 500.0
+margin_right = 520.0
+margin_bottom = 20.0
+toggle_mode = true
+icon = ExtResource( 4 )
+
+[node name="random" type="HBoxContainer" parent="menu/MarginContainer/VBoxContainer"]
+editor/display_folded = true
+margin_top = 432.0
+margin_right = 520.0
+margin_bottom = 452.0
+rect_min_size = Vector2( 307, 0 )
+hint_tooltip = "Perlin-Noise-generated random movement. Creates a natural-looking wiggle-effect"
+custom_constants/separation = 5
+
+[node name="name" type="Label" parent="menu/MarginContainer/VBoxContainer/random"]
+margin_top = 3.0
+margin_right = 62.0
+margin_bottom = 17.0
+rect_min_size = Vector2( 62, 0 )
+size_flags_horizontal = 0
+text = "random:"
+align = 2
+
+[node name="slider" type="HSlider" parent="menu/MarginContainer/VBoxContainer/random"]
+margin_left = 67.0
+margin_right = 425.0
+margin_bottom = 16.0
+size_flags_horizontal = 3
+max_value = 1.0
+step = 0.01
+ticks_on_borders = true
+
+[node name="value" type="Label" parent="menu/MarginContainer/VBoxContainer/random"]
+margin_left = 430.0
+margin_top = 3.0
+margin_right = 470.0
+margin_bottom = 17.0
+rect_min_size = Vector2( 40, 0 )
+size_flags_horizontal = 0
+text = "1"
+
+[node name="disable5" type="Button" parent="menu/MarginContainer/VBoxContainer/random"]
+margin_left = 475.0
+margin_right = 495.0
+margin_bottom = 20.0
+toggle_mode = true
+text = "ø"
+
+[node name="lock5" type="Button" parent="menu/MarginContainer/VBoxContainer/random"]
+margin_left = 500.0
+margin_right = 520.0
+margin_bottom = 20.0
+toggle_mode = true
+icon = ExtResource( 4 )
+
+[node name="gravity" type="HBoxContainer" parent="menu/MarginContainer/VBoxContainer"]
+editor/display_folded = true
+margin_top = 456.0
+margin_right = 520.0
+margin_bottom = 476.0
+rect_min_size = Vector2( 307, 0 )
+hint_tooltip = "This gets multiplied by mass. Negative value points upwards."
+custom_constants/separation = 5
+
+[node name="name" type="Label" parent="menu/MarginContainer/VBoxContainer/gravity"]
+margin_top = 3.0
+margin_right = 62.0
+margin_bottom = 17.0
+rect_min_size = Vector2( 62, 0 )
+size_flags_horizontal = 0
+text = "gravity:"
+align = 2
+
+[node name="slider" type="HSlider" parent="menu/MarginContainer/VBoxContainer/gravity"]
+margin_left = 67.0
+margin_right = 425.0
+margin_bottom = 16.0
+size_flags_horizontal = 3
+min_value = -1.0
+max_value = 1.0
+step = 0.01
+tick_count = 5
+ticks_on_borders = true
+
+[node name="value" type="Label" parent="menu/MarginContainer/VBoxContainer/gravity"]
+margin_left = 430.0
+margin_top = 3.0
+margin_right = 470.0
+margin_bottom = 17.0
+rect_min_size = Vector2( 40, 0 )
+size_flags_horizontal = 0
+text = "1"
+
+[node name="disable6" type="Button" parent="menu/MarginContainer/VBoxContainer/gravity"]
+margin_left = 475.0
+margin_right = 495.0
+margin_bottom = 20.0
+toggle_mode = true
+text = "ø"
+
+[node name="lock6" type="Button" parent="menu/MarginContainer/VBoxContainer/gravity"]
+margin_left = 500.0
+margin_right = 520.0
+margin_bottom = 20.0
+toggle_mode = true
+icon = ExtResource( 4 )
+
+[node name="wind" type="HBoxContainer" parent="menu/MarginContainer/VBoxContainer"]
+editor/display_folded = true
+margin_top = 480.0
+margin_right = 520.0
+margin_bottom = 500.0
+rect_min_size = Vector2( 307, 0 )
+hint_tooltip = "This gets divided by mass. Left- and right movement"
+custom_constants/separation = 5
+
+[node name="name" type="Label" parent="menu/MarginContainer/VBoxContainer/wind"]
+margin_top = 3.0
+margin_right = 62.0
+margin_bottom = 17.0
+rect_min_size = Vector2( 62, 0 )
+size_flags_horizontal = 0
+text = "wind:"
+align = 2
+
+[node name="slider" type="HSlider" parent="menu/MarginContainer/VBoxContainer/wind"]
+margin_left = 67.0
+margin_right = 425.0
+margin_bottom = 16.0
+size_flags_horizontal = 3
+min_value = -1.0
+max_value = 1.0
+step = 0.01
+tick_count = 5
+ticks_on_borders = true
+
+[node name="value" type="Label" parent="menu/MarginContainer/VBoxContainer/wind"]
+margin_left = 430.0
+margin_top = 3.0
+margin_right = 470.0
+margin_bottom = 17.0
+rect_min_size = Vector2( 40, 0 )
+size_flags_horizontal = 0
+text = "1"
+
+[node name="disable7" type="Button" parent="menu/MarginContainer/VBoxContainer/wind"]
+margin_left = 475.0
+margin_right = 495.0
+margin_bottom = 20.0
+toggle_mode = true
+text = "ø"
+
+[node name="lock7" type="Button" parent="menu/MarginContainer/VBoxContainer/wind"]
+margin_left = 500.0
+margin_right = 520.0
+margin_bottom = 20.0
+toggle_mode = true
+icon = ExtResource( 4 )
+
+[node name="friction" type="HBoxContainer" parent="menu/MarginContainer/VBoxContainer"]
+editor/display_folded = true
+margin_top = 504.0
+margin_right = 520.0
+margin_bottom = 524.0
+rect_min_size = Vector2( 307, 0 )
+hint_tooltip = "Velocity-loss per frame"
+custom_constants/separation = 5
+
+[node name="name" type="Label" parent="menu/MarginContainer/VBoxContainer/friction"]
+margin_top = 3.0
+margin_right = 62.0
+margin_bottom = 17.0
+rect_min_size = Vector2( 62, 0 )
+size_flags_horizontal = 0
+text = "friction:"
+align = 2
+
+[node name="slider" type="HSlider" parent="menu/MarginContainer/VBoxContainer/friction"]
+margin_left = 67.0
+margin_right = 425.0
+margin_bottom = 16.0
+size_flags_horizontal = 3
+max_value = 1.0
+step = 0.01
+ticks_on_borders = true
+
+[node name="value" type="Label" parent="menu/MarginContainer/VBoxContainer/friction"]
+margin_left = 430.0
+margin_top = 3.0
+margin_right = 470.0
+margin_bottom = 17.0
+rect_min_size = Vector2( 40, 0 )
+size_flags_horizontal = 0
+text = "1"
+
+[node name="disable8" type="Button" parent="menu/MarginContainer/VBoxContainer/friction"]
+margin_left = 475.0
+margin_right = 495.0
+margin_bottom = 20.0
+toggle_mode = true
+text = "ø"
+
+[node name="lock8" type="Button" parent="menu/MarginContainer/VBoxContainer/friction"]
+margin_left = 500.0
+margin_right = 520.0
+margin_bottom = 20.0
+toggle_mode = true
+icon = ExtResource( 4 )
+
+[node name="Buttons" type="HBoxContainer" parent="menu/MarginContainer/VBoxContainer"]
+margin_top = 528.0
+margin_right = 520.0
+margin_bottom = 548.0
+custom_constants/separation = 50
+alignment = 1
+
+[node name="restoredefault" type="Button" parent="menu/MarginContainer/VBoxContainer/Buttons"]
+margin_left = 114.0
+margin_right = 225.0
+margin_bottom = 20.0
+text = "Restore Default"
+
+[node name="pause" type="Button" parent="menu/MarginContainer/VBoxContainer/Buttons"]
+pause_mode = 2
+margin_left = 275.0
+margin_right = 335.0
+margin_bottom = 20.0
+toggle_mode = true
+text = "FREEZE!"
+
+[node name="hidemenu" type="Button" parent="menu/MarginContainer/VBoxContainer/Buttons"]
+modulate = Color( 1, 0.25098, 0.25098, 1 )
+margin_left = 385.0
+margin_right = 405.0
+margin_bottom = 20.0
+size_flags_horizontal = 4
+text = "X"
+
+[node name="showmenu" type="Button" parent="."]
+margin_left = 5.0
+margin_top = 5.0
+margin_right = 85.0
+margin_bottom = 20.0
+text = "Show Menu"
+[connection signal="value_changed" from="menu/MarginContainer/VBoxContainer/population/slider" to="menu" method="_on_pop_value_changed"]
+[connection signal="value_changed" from="menu/MarginContainer/VBoxContainer/population/slider" to="." method="change_population"]
+[connection signal="toggled" from="menu/MarginContainer/VBoxContainer/population/lock9" to="menu" method="_on_poplock_toggled"]
+[connection signal="value_changed" from="menu/MarginContainer/VBoxContainer/max_speed/slider" to="menu" method="_on_maxspeed_value_changed"]
+[connection signal="toggled" from="menu/MarginContainer/VBoxContainer/max_speed/lock8" to="menu" method="_on_speedlock_toggled"]
+[connection signal="value_changed" from="menu/MarginContainer/VBoxContainer/max_force/slider" to="menu" method="_on_maxforce_value_changed"]
+[connection signal="toggled" from="menu/MarginContainer/VBoxContainer/max_force/lock7" to="menu" method="_on_forcelock_toggled"]
+[connection signal="value_changed" from="menu/MarginContainer/VBoxContainer/view_radius/slider" to="menu" method="_on_vrad_value_changed"]
+[connection signal="toggled" from="menu/MarginContainer/VBoxContainer/view_radius/lock6" to="menu" method="_onvradlock_toggled"]
+[connection signal="value_changed" from="menu/MarginContainer/VBoxContainer/view_angle/slider" to="menu" method="_on_vang_value_changed"]
+[connection signal="toggled" from="menu/MarginContainer/VBoxContainer/view_angle/lock5" to="menu" method="_on_vanglock_toggled"]
+[connection signal="value_changed" from="menu/MarginContainer/VBoxContainer/target_radius/slider" to="menu" method="_on_trad_value_changed"]
+[connection signal="toggled" from="menu/MarginContainer/VBoxContainer/target_radius/lock4" to="menu" method="_on_tradlock_toggled"]
+[connection signal="value_changed" from="menu/MarginContainer/VBoxContainer/brake_radius/slider" to="menu" method="_on_brad_value_changed"]
+[connection signal="toggled" from="menu/MarginContainer/VBoxContainer/brake_radius/lock4" to="menu" method="_on_bradlock_toggled"]
+[connection signal="value_changed" from="menu/MarginContainer/VBoxContainer/avg_mass/slider" to="menu" method="_on_mass_value_changed"]
+[connection signal="value_changed" from="menu/MarginContainer/VBoxContainer/avg_mass/slider" to="." method="_on_mass_value_changed"]
+[connection signal="toggled" from="menu/MarginContainer/VBoxContainer/avg_mass/lock3" to="menu" method="_on_masslock_toggled"]
+[connection signal="toggled" from="menu/MarginContainer/VBoxContainer/checkboxes/HBoxContainer/check" to="menu" method="_on_check_toggled"]
+[connection signal="pressed" from="menu/MarginContainer/VBoxContainer/checkboxes/HBoxContainer2/VBoxContainer/HBoxContainer/draw_velocity" to="menu" method="_on_draw_velocity_pressed"]
+[connection signal="pressed" from="menu/MarginContainer/VBoxContainer/checkboxes/HBoxContainer2/VBoxContainer/HBoxContainer2/draw_force" to="menu" method="_on_draw_force_pressed"]
+[connection signal="pressed" from="menu/MarginContainer/VBoxContainer/checkboxes/HBoxContainer2/VBoxContainer/HBoxContainer3/draw_fov" to="menu" method="_on_draw_fov_pressed"]
+[connection signal="value_changed" from="menu/MarginContainer/VBoxContainer/master/slider" to="menu" method="_on_master_value_changed"]
+[connection signal="toggled" from="menu/MarginContainer/VBoxContainer/master/disable2" to="menu" method="_on_masterdisable_toggled"]
+[connection signal="toggled" from="menu/MarginContainer/VBoxContainer/master/lock2" to="menu" method="_on_masterlock_toggled"]
+[connection signal="value_changed" from="menu/MarginContainer/VBoxContainer/seek/slider" to="menu" method="_on_seek_value_changed"]
+[connection signal="toggled" from="menu/MarginContainer/VBoxContainer/seek/disable" to="menu" method="_on_seekdisable_toggled"]
+[connection signal="toggled" from="menu/MarginContainer/VBoxContainer/seek/lock" to="menu" method="_on_seeklock_toggled"]
+[connection signal="value_changed" from="menu/MarginContainer/VBoxContainer/separate/slider" to="menu" method="_on_sep_value_changed"]
+[connection signal="toggled" from="menu/MarginContainer/VBoxContainer/separate/disable2" to="menu" method="_on_sepdisable_toggled"]
+[connection signal="toggled" from="menu/MarginContainer/VBoxContainer/separate/lock2" to="menu" method="_on_seplock_toggled"]
+[connection signal="value_changed" from="menu/MarginContainer/VBoxContainer/align/slider" to="menu" method="_on_ali_value_changed"]
+[connection signal="toggled" from="menu/MarginContainer/VBoxContainer/align/disable3" to="menu" method="_on_alidisable_toggled"]
+[connection signal="toggled" from="menu/MarginContainer/VBoxContainer/align/lock3" to="menu" method="_on_alilock_toggled"]
+[connection signal="value_changed" from="menu/MarginContainer/VBoxContainer/cohesion/slider" to="menu" method="_on_coh_value_changed"]
+[connection signal="toggled" from="menu/MarginContainer/VBoxContainer/cohesion/disable4" to="menu" method="_on_cohdisable_toggled"]
+[connection signal="toggled" from="menu/MarginContainer/VBoxContainer/cohesion/lock4" to="menu" method="_on_cohlock_toggled"]
+[connection signal="value_changed" from="menu/MarginContainer/VBoxContainer/random/slider" to="menu" method="_on_random_value_changed"]
+[connection signal="toggled" from="menu/MarginContainer/VBoxContainer/random/disable5" to="menu" method="_on_randisable_toggled"]
+[connection signal="toggled" from="menu/MarginContainer/VBoxContainer/random/lock5" to="menu" method="_on_ranlock_toggled"]
+[connection signal="value_changed" from="menu/MarginContainer/VBoxContainer/gravity/slider" to="menu" method="_on_gra_value_changed"]
+[connection signal="toggled" from="menu/MarginContainer/VBoxContainer/gravity/disable6" to="menu" method="_on_gradisable_toggled"]
+[connection signal="toggled" from="menu/MarginContainer/VBoxContainer/gravity/lock6" to="menu" method="_on_gralock_toggled"]
+[connection signal="value_changed" from="menu/MarginContainer/VBoxContainer/wind/slider" to="menu" method="_on_wind_value_changed"]
+[connection signal="toggled" from="menu/MarginContainer/VBoxContainer/wind/disable7" to="menu" method="_on_winddisable_toggled"]
+[connection signal="toggled" from="menu/MarginContainer/VBoxContainer/wind/lock7" to="menu" method="_on_windlock_toggled"]
+[connection signal="value_changed" from="menu/MarginContainer/VBoxContainer/friction/slider" to="menu" method="_on_fric_value_changed"]
+[connection signal="toggled" from="menu/MarginContainer/VBoxContainer/friction/disable8" to="menu" method="_on_fridisable_toggled"]
+[connection signal="toggled" from="menu/MarginContainer/VBoxContainer/friction/lock8" to="menu" method="_on_frilock_toggled"]
